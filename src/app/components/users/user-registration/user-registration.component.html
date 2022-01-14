@@ -1,1 +1,74 @@
-<p>user-registration works!</p>
+<div class="register-card">
+  <mat-card id="register-content">
+    <mat-card-header>
+      <mat-card-title>
+        <h1>REGISTRATION</h1>
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form class="register-form">
+        <mat-divider> </mat-divider>
+
+        <div>
+          <mat-form-field>
+            <mat-label> E-mail </mat-label>
+            <input
+              matInput
+              name="email"
+              placeholder="E-mail"
+              type="email"
+              class="email"
+              size="30"
+              [(ngModel)]="user.email"
+              #email="ngModel"
+              required
+              pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
+            />
+            <mat-error>Email is required</mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field>
+            <mat-label> Password </mat-label>
+            <input
+              matInput
+              name="password"
+              placeholder="Password"
+              type="password"
+              class="password"
+              size="30"
+              [(ngModel)]="user.password"
+              #password="ngModel"
+              required
+              pattern="(?=.*[0-9])(?=.*[a-z])[0-9a-z]{6,}"
+            />
+            <mat-error>Password is required</mat-error>
+          </mat-form-field>
+        </div>
+      </form>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button
+        class="register-button"
+        mat-raised-button
+        color="primary"
+        [disabled]="email.invalid || password.invalid"
+        (click)="registration()"
+      >
+        Registration
+      </button>
+    </mat-card-actions>
+    <mat-card-footer>
+      <button
+        class="register-button"
+        mat-raised-button
+        color="primary"
+        (click)="already()"
+      >
+        Already registered?
+      </button>
+    </mat-card-footer>
+  </mat-card>
+</div>

@@ -1,15 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { AuthService } from '../../services/auth.service';
+import { IUser } from '../interfaces/user.interface';
 
 @Component({
   selector: 'app-user-registration',
   templateUrl: './user-registration.component.html',
-  styleUrls: ['./user-registration.component.css']
+  styleUrls: ['./user-registration.component.css'],
 })
-export class UserRegistrationComponent implements OnInit {
+export class UserRegistrationComponent {
+  constructor(private authService: AuthService, private router: Router) {}
 
-  constructor() { }
+  user: IUser = { email: '', password: '' };
 
-  ngOnInit(): void {
+  registration(): void {
+    this.authService.registration(this.user);
+
+    alert('A confirmation link has been sent to the specified email address.');
   }
 
+  already() {
+    this.router.navigate(['login']);
+  }
 }

@@ -1,1 +1,58 @@
-<p>user-login works!</p>
+<div class="login-card">
+  <mat-card id="login-content">
+    <mat-card-header>
+      <mat-card-title>
+        <h1>LOGIN</h1>
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form class="login-form">
+        <mat-divider> </mat-divider>
+
+        <div>
+          <mat-form-field>
+            <mat-label> E-mail </mat-label>
+            <input
+              matInput
+              placeholder="email@example.com"
+              name="email"
+              type="email"
+              [(ngModel)]="user.email"
+              #email="ngModel"
+              required
+              pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
+            />
+            <mat-error>Email is required</mat-error>
+            <mat-error *ngIf="email.invalid">123</mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field>
+            <mat-label> Password </mat-label>
+            <input
+              matInput
+              name="password"
+              type="password"
+              [(ngModel)]="user.password"
+              #password="ngModel"
+              required
+              pattern="(?=.*[0-9])(?=.*[a-z])[0-9a-z]{6,}"
+            />
+            <mat-error>Password is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <button
+          class="login-button"
+          mat-raised-button
+          color="primary"
+          [disabled]="email.invalid || password.invalid"
+          (click)="login()"
+        >
+          Login
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,0 +1,30 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999;
+}
+
+.mat-toolbar {
+  height: 70px;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.page-landing {
+  width: auto;
+  height: 100%;
+  /* margin-top: 70px; */
+  /* background-color: rgb(233, 233, 233); */
+}
+
+button {
+  width: 7em;
+}
+
+button.active {
+  background-color: rgb(69, 2, 156);
+}

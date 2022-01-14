@@ -7,6 +7,8 @@ import { MatIconModule } from '@angular/material/icon';
 
 import AppRoutingModule from './app-routing.module';
 import { AppComponent } from './app.component';
+import { UsersModule } from './components/users/users.module';
+
 import { HomeModule } from './components/home/home.module';
 import { NotFoundModule } from './components/not-found/not-found.module';
 
@@ -21,6 +23,7 @@ import { NotFoundModule } from './components/not-found/not-found.module';
     HttpClientModule,
     HomeModule,
     NotFoundModule,
+    UsersModule,
   ],
 
   bootstrap: [AppComponent],
