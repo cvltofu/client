@@ -7,8 +7,9 @@ export const environment = {
 };
 
 export const apiUrlTodos = 'http://localhost:5000/api/todos/';
-export const apiUrlRegistration = 'http://localhost:5000/api/registration/';
-export const apiUrlLogin = 'http://localhost:5000/api/login/';
+export const apiUrlRegistration =
+  'http://localhost:5000/api/auth/registration/';
+export const apiUrlLogin = 'http://localhost:5000/api/auth/login/';
 
 /*
  * For easier debugging in development mode, you can import the following file
