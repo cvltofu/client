@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './components/classes/auth.guard';
+import { LoginAuthGuard } from './components/classes/login-auth.guard';
 
 import { HomeComponent } from './components/home/home.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
@@ -19,10 +21,12 @@ const routes: Routes = [
   {
     path: 'login',
     component: UserLoginComponent,
+    canActivate: [LoginAuthGuard],
   },
   {
     path: 'todos',
     component: TodosComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: '**',
