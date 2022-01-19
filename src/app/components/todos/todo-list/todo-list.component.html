@@ -1,1 +1,72 @@
-<p>todo-list works!</p>
+<div class="page-landing">
+  <table mat-table [dataSource]="todoList" class="mat-elevation-z8">
+    <!-- Date Column -->
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef>Date</th>
+      <td mat-cell *matCellDef="let item">
+        {{ item.date | date }}
+      </td>
+    </ng-container>
+
+    <!-- Title Column -->
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef>Title</th>
+      <td mat-cell *matCellDef="let item">{{ item.title }}</td>
+    </ng-container>
+
+    <!-- Task Column -->
+    <ng-container matColumnDef="task">
+      <th mat-header-cell *matHeaderCellDef>Task</th>
+      <td mat-cell *matCellDef="let item">{{ item.task }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="delete">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let item">
+        <button
+          class="delete-button"
+          mat-raised-button
+          color="warn"
+          (click)="deleteTodo(item._id)"
+        >
+          x
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  <table class="addTable" border="1" cellspacing="1" cellpadding="10">
+    <tr>
+      <td>
+        <input placeholder="День" size="1" [(ngModel)]="date.day" />
+        <input placeholder="Месяц" size="1" [(ngModel)]="date.month" />
+        <input placeholder="Год" size="4" [(ngModel)]="date.year" />
+      </td>
+      <td>
+        <input
+          placeholder="Название"
+          name="title"
+          [(ngModel)]="todoAdd.title"
+        />
+      </td>
+      <td>
+        <input
+          placeholder="Что будем делать"
+          name="task"
+          [(ngModel)]="todoAdd.task"
+        />
+      </td>
+    </tr>
+  </table>
+  <button
+    mat-raised-button
+    color="primary"
+    class="addButton"
+    (click)="addTodo()"
+  >
+    Добавить
+  </button>
+</div>
