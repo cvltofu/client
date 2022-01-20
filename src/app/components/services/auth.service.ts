@@ -12,7 +12,6 @@ export class AuthService {
 
   public user$ = new BehaviorSubject({});
   public accessToken$ = new BehaviorSubject('');
-  // private accessToken!: string;
 
   constructor(
     private readonly httpService: HttpClient,
@@ -33,7 +32,6 @@ export class AuthService {
       .subscribe((value: any) => {
         this.setToken(value.accessToken);
 
-        // Перемименовать в isAuth, передавать флаг true/false
         this.accessToken$.next(value.accessToken);
         this.user$.next(value.user);
 
@@ -47,7 +45,6 @@ export class AuthService {
   }
 
   setToken(token: string) {
-    // this.accessToken = token;
     localStorage.setItem('access-token', token);
   }
 
