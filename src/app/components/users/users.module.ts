@@ -9,7 +9,6 @@ import { MatDividerModule } from '@angular/material/divider';
 
 import { UserRegistrationComponent } from './user-registration/user-registration.component';
 import { UserLoginComponent } from './user-login/user-login.component';
-import { UserAuthComponent } from './user-auth/user-auth.component';
 
 @NgModule({
   imports: [
@@ -22,11 +21,7 @@ import { UserAuthComponent } from './user-auth/user-auth.component';
     MatInputModule,
     MatDividerModule,
   ],
-  declarations: [
-    UserRegistrationComponent,
-    UserLoginComponent,
-    UserAuthComponent,
-  ],
+  declarations: [UserRegistrationComponent, UserLoginComponent],
   exports: [UserRegistrationComponent, UserLoginComponent],
 })
 export class UsersModule {}

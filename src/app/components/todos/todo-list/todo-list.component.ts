@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 import { Todo } from '../interfaces/todo.interface';
 import { IDate } from '../interfaces/date.interface';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-todos-list',
@@ -14,13 +15,11 @@ export class TodosListComponent {
   @Output() onClickAdd = new EventEmitter();
   @Output() onClickDelete = new EventEmitter();
 
-  todoAdd: Todo = { date: new Date(), title: '', task: '', _id: '' };
+  constructor(private authService: AuthService) {}
+
+  todoAdd: Todo = { date: new Date(), title: '', task: '' };
   date: IDate = { day: 0, month: 0, year: 0, date: '' };
   displayedColumns: string[] = ['date', 'title', 'task', 'delete'];
-
-  showTodo(todo: Todo) {
-    this.onChangedList.emit(todo);
-  }
 
   deleteTodo(_id: string) {
     this.onClickDelete.emit(_id);
