@@ -1,7 +1,5 @@
 <app-todos-list
-  *ngIf="!todoItem"
   [todoList]="todoList"
-  (onChangedList)="setItem($event)"
   (onClickAdd)="postItem($event)"
   (onClickDelete)="deleteItem($event)"
 ></app-todos-list>

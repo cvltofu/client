@@ -12,7 +12,6 @@ export class TodosComponent implements OnInit {
   constructor(private todosService: TodosService) {}
 
   todoList!: Todo[];
-  todoItem?: Todo;
 
   ngOnInit(): void {
     this.getTodosList();
@@ -40,13 +39,5 @@ export class TodosComponent implements OnInit {
       .subscribe((value) => {
         this.todoList = value;
       });
-  }
-
-  setItem(todo: Todo): void {
-    this.todoItem = todo;
-  }
-
-  unsetItem(): void {
-    this.todoItem = undefined;
   }
 }
