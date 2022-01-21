@@ -12,7 +12,7 @@ import { IUser } from '../interfaces/user.interface';
 export class UserRegistrationComponent {
   constructor(private authService: AuthService, private router: Router) {}
 
-  user: IUser = { email: '', password: '' };
+  user: IUser = { username: '', email: '', password: '' };
 
   registration(): void {
     this.authService.registration(this.user);

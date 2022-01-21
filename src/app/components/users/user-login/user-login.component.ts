@@ -11,7 +11,7 @@ import { IUser } from '../interfaces/user.interface';
 export class UserLoginComponent {
   constructor(private authService: AuthService) {}
 
-  user: IUser = { email: '', password: '' };
+  user: IUser = { username: '', email: '', password: '' };
 
   login(): void {
     this.authService.login(this.user);

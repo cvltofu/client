@@ -11,17 +11,20 @@ export class AppComponent implements OnInit, OnDestroy {
 
   public accessToken?: string | null;
   public isAuth?: boolean;
-  public username = 'Anonim';
+  public username!: string;
 
   ngOnInit(): void {
     this.authService.accessToken$.subscribe(() => {
       this.accessToken = localStorage.getItem('access-token');
     });
 
-    // this.authService.user$.subscribe((value: any) => {
-    //   console.log(value);
-    //   this.username = value.email;
-    // });
+    this.authService.user$.subscribe((value: any) => {
+      console.log(value);
+
+      if (Object.keys(value).length !== 0) {
+        this.username = value.username;
+      }
+    });
   }
 
   logout() {
