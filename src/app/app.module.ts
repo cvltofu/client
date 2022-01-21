@@ -12,6 +12,7 @@ import { UsersModule } from './components/users/users.module';
 import { HomeModule } from './components/home/home.module';
 import { NotFoundModule } from './components/not-found/not-found.module';
 import { TokenInterceptor } from './components/classes/token.interceptor';
+import { NavbarModule } from './components/navbar/navbar.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,6 +27,7 @@ import { TokenInterceptor } from './components/classes/token.interceptor';
     NotFoundModule,
     TodosModule,
     UsersModule,
+    NavbarModule,
   ],
   providers: [
     {

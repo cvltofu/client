@@ -1,45 +1,5 @@
 <div class="navbar">
-  <mat-toolbar color="primary">
-    <!-- <button mat-icon-button>
-        <mat-icon>menu</mat-icon>
-      </button> -->
-
-    <button
-      mat-flat-button
-      color="primary"
-      routerLink=""
-      [routerLinkActiveOptions]="{ exact: true }"
-      routerLinkActive="active"
-    >
-      Home
-    </button>
-    <button
-      mat-flat-button
-      color="primary"
-      routerLink="todos"
-      routerLinkActive="active"
-      *ngIf="accessToken"
-    >
-      Todos
-    </button>
-
-    <span class="example-spacer"></span>
-    <button mat-icon-button *ngIf="!accessToken" routerLink="login">
-      <mat-icon>login</mat-icon>
-    </button>
-    <button mat-icon-button *ngIf="!accessToken" routerLink="registration">
-      <mat-icon>person_add</mat-icon>
-    </button>
-    <div *ngIf="accessToken">Hello, {{ username }}</div>
-    <button
-      mat-icon-button
-      *ngIf="accessToken"
-      (click)="logout()"
-      routerLink=""
-    >
-      <mat-icon>logout</mat-icon>
-    </button>
-  </mat-toolbar>
+  <app-navbar></app-navbar>
 </div>
 <div class="page-landing">
   <router-outlet></router-outlet>

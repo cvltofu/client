@@ -1,0 +1,15 @@
+.mat-toolbar {
+  height: 70px;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+button {
+  width: 7em;
+}
+
+button.active {
+  background-color: rgb(69, 2, 156);
+}
