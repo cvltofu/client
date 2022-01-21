@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { DEFAULT_ROUTER_FEATURENAME, routerReducer } from '@ngrx/router-store';
+import { StoreModule } from '@ngrx/store';
 import { AuthGuard } from './components/classes/auth.guard';
 import { LoginAuthGuard } from './components/classes/login-auth.guard';
 
@@ -35,7 +37,10 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    StoreModule.forFeature(DEFAULT_ROUTER_FEATURENAME, routerReducer),
+    RouterModule.forRoot(routes),
+  ],
   exports: [RouterModule],
 })
 export default class AppRoutingModule {}
