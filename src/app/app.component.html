@@ -30,6 +30,7 @@
     <button mat-icon-button *ngIf="!accessToken" routerLink="registration">
       <mat-icon>person_add</mat-icon>
     </button>
+    <div *ngIf="accessToken">Hello, {{ username }}</div>
     <button
       mat-icon-button
       *ngIf="accessToken"
