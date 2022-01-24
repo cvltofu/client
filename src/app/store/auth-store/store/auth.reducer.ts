@@ -5,6 +5,12 @@ export const AUTH_FEATURENAME = 'auth';
 
 export interface AuthData {
   accessToken: string;
+  username: string;
+  email: string;
+  id: string;
+  isActivated: boolean;
+  iat: number;
+  exp: number;
 }
 
 export interface AuthState {
@@ -27,13 +33,16 @@ export const authReducer = createReducer(
     loading: true,
   })),
 
-  on(loginSuccess, (state, authData: AuthData) => ({
-    ...state,
-    authData,
-    loaded: true,
-    loading: false,
-    serverError: '',
-  })),
+  on(
+    loginSuccess,
+    (state, { type, ...authData }: { type: string } & AuthData) => ({
+      ...state,
+      authData,
+      loaded: true,
+      loading: false,
+      serverError: '',
+    })
+  ),
 
   on(loginFailed, (state, { serverError }) => ({
     ...state,

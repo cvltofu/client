@@ -1,8 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { JwtModule } from '@auth0/angular-jwt';
+
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+
 import { AuthEffects } from './store/auth.effects';
 import { authReducer, AUTH_FEATURENAME } from './store/auth.reducer';
 
@@ -11,6 +14,11 @@ import { authReducer, AUTH_FEATURENAME } from './store/auth.reducer';
   imports: [
     CommonModule,
     HttpClientModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: (request) => request as any,
+      },
+    }),
     StoreModule.forFeature(AUTH_FEATURENAME, authReducer),
     EffectsModule.forFeature([AuthEffects]),
   ],
