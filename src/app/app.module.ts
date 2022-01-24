@@ -1,25 +1,24 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { environment } from '../environments/environment';
+import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { EffectsModule } from '@ngrx/effects';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 
+import { environment } from '../environments/environment';
 import AppRoutingModule from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TodosModule } from './components/todos/todos.module';
 import { UsersModule } from './components/users/users.module';
 import { HomeModule } from './components/home/home.module';
 import { NotFoundModule } from './components/not-found/not-found.module';
-import { TokenInterceptor } from './components/classes/token.interceptor';
 import { NavbarModule } from './components/navbar/navbar.module';
 import { AuthStoreModule } from './store/auth-store/auth-store.module';
-import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -44,13 +43,13 @@ import { EffectsModule } from '@ngrx/effects';
     AuthStoreModule,
     EffectsModule.forRoot([]),
   ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      multi: true,
-      useClass: TokenInterceptor,
-    },
-  ],
+  // providers: [
+  //   {
+  //     provide: HTTP_INTERCEPTORS,
+  //     multi: true,
+  //     useClass: TokenInterceptor,
+  //   },
+  // ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

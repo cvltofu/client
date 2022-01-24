@@ -38,7 +38,9 @@
     "import/extensions": ["off"],
     "import/no-unresolved": ["off"],
     "import/prefer-default-export": ["off"],
-    "no-useless-constructor": "off"
+    "no-useless-constructor": "off",
+    "no-return-assign": "off",
+    "no-param-reassign": "off"
   }
   // "overrides": [
   //   {

@@ -38,33 +38,4 @@ export class TokenInterceptor implements HttpInterceptor {
       })
     );
   }
-
-  // intercept(
-  //   req: HttpRequest<any>,
-  //   next: HttpHandler
-  // ): Observable<HttpEvent<any>> {
-  //   if (this.authService.isAuthenticated()) {
-  //     // eslint-disable-next-line no-param-reassign
-  //     req = req.clone({
-  //       setHeaders: {
-  //         Authorization: `Bearer ${this.authService.getToken()}`,
-  //       },
-  //     });
-  //   }
-
-  //   return next.handle(req).pipe(
-  //     catchError((err) => {
-  //       if (err instanceof HttpErrorResponse && err.status === 401) {
-  //         this.authService.logout();
-  //         this.router.navigate(['/login'], {
-  //           queryParams: {
-  //             sessionFailed: true,
-  //           },
-  //         });
-  //         return EMPTY;
-  //       }
-  //       throw err;
-  //     })
-  //   );
-  // }
 }

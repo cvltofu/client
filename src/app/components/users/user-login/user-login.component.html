@@ -47,7 +47,7 @@
           class="login-button"
           mat-raised-button
           color="primary"
-          [disabled]="email.invalid || password.invalid"
+          [disabled]="(loading$ | async) || email.invalid || password.invalid"
           (click)="login()"
         >
           Login

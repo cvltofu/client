@@ -21,14 +21,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
       return of(true);
     }
 
-    this.router.navigate([
-      '/login',
-      {
-        queryParams: {
-          accessDenied: true,
-        },
-      },
-    ]);
+    this.router.navigate(['/login']);
 
     return of(false);
   }
