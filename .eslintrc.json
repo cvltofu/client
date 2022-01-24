@@ -16,11 +16,7 @@
     "ecmaVersion": 13,
     "sourceType": "module"
   },
-  "plugins": [
-    "@typescript-eslint",
-    "prettier",
-    "html"
-  ],
+  "plugins": ["@typescript-eslint", "prettier", "html"],
   "rules": {
     "prettier/prettier": [
       "warn",
@@ -38,28 +34,16 @@
     "consistent-return": "off",
     "no-empty-function": "off",
     "lines-between-class-members": "off",
-    "@typescript-eslint/no-empty-function": [
-      "warn"
-    ],
-    "import/extensions": [
-      "off"
-    ],
-    "import/no-unresolved": [
-      "off"
-    ],
-    "import/prefer-default-export": [
-      "off"
-    ],
+    "@typescript-eslint/no-empty-function": ["warn"],
+    "import/extensions": ["off"],
+    "import/no-unresolved": ["off"],
+    "import/prefer-default-export": ["off"],
     "no-useless-constructor": "off"
-  },
-  "overrides": [
-    {
-      "files": [
-        "*.ts"
-      ],
-      "extends": [
-        "plugin:ngrx/recommended"
-      ]
-    }
-  ]
+  }
+  // "overrides": [
+  //   {
+  //     "files": ["*.ts"],
+  //     "extends": ["plugin:ngrx/recommended"]
+  //   }
+  // ]
 }

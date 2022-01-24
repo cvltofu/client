@@ -1,4 +1,4 @@
-<div class="login-card">
+<div *ngIf="loaded$ | async" class="login-card">
   <mat-card id="login-content">
     <mat-card-header>
       <mat-card-title>

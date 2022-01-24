@@ -18,6 +18,8 @@ import { HomeModule } from './components/home/home.module';
 import { NotFoundModule } from './components/not-found/not-found.module';
 import { TokenInterceptor } from './components/classes/token.interceptor';
 import { NavbarModule } from './components/navbar/navbar.module';
+import { AuthStoreModule } from './store/auth-store/auth-store.module';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -39,6 +41,8 @@ import { NavbarModule } from './components/navbar/navbar.module';
       logOnly: environment.production,
     }),
     StoreRouterConnectingModule.forRoot(),
+    AuthStoreModule,
+    EffectsModule.forRoot([]),
   ],
   providers: [
     {
