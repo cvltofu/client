@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
@@ -19,6 +19,7 @@ import { HomeModule } from './components/home/home.module';
 import { NotFoundModule } from './components/not-found/not-found.module';
 import { NavbarModule } from './components/navbar/navbar.module';
 import { AuthStoreModule } from './store/auth-store/auth-store.module';
+import { TokenInterceptor } from './store/auth-store/interceptors/token.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -43,13 +44,13 @@ import { AuthStoreModule } from './store/auth-store/auth-store.module';
     AuthStoreModule,
     EffectsModule.forRoot([]),
   ],
-  // providers: [
-  //   {
-  //     provide: HTTP_INTERCEPTORS,
-  //     multi: true,
-  //     useClass: TokenInterceptor,
-  //   },
-  // ],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      multi: true,
+      useClass: TokenInterceptor,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

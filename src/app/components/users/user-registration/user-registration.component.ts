@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { registration } from 'src/app/store/auth-store/store/auth.actions';
 
-import { AuthService } from '../../services/auth.service';
 import { IUser } from '../interfaces/user.interface';
 
 @Component({
@@ -10,12 +11,13 @@ import { IUser } from '../interfaces/user.interface';
   styleUrls: ['./user-registration.component.css'],
 })
 export class UserRegistrationComponent {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private store$: Store, private router: Router) {}
 
   user: IUser = { username: '', email: '', password: '' };
 
   registration(): void {
-    this.authService.registration(this.user);
+    this.store$.dispatch(registration(this.user));
+    // this.authService.registration(this.user);
 
     alert('A confirmation link has been sent to the specified email address.');
   }

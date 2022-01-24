@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { login } from 'src/app/store/auth-store/store/auth.actions';
 
 import * as auth from 'src/app/store/auth-store/store/auth.selectors';
-import { AuthService } from '../../services/auth.service';
 import { IUser } from '../interfaces/user.interface';
 
 @Component({
@@ -21,10 +21,14 @@ export class UserLoginComponent {
     select(auth.getServerError)
   );
 
-  constructor(private authService: AuthService, private store$: Store) {}
+  constructor(private store$: Store, private router: Router) {}
 
   login(): void {
     this.store$.dispatch(login(this.user));
+
+    if (this.loaded$) {
+      this.router.navigate(['']);
+    }
     // this.authService.login(this.user);
   }
 }

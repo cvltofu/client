@@ -13,15 +13,17 @@ export const getServerError = createSelector(
   (state) => state.serverError
 );
 
-export const getAuthData = createSelector(
-  getFeature,
-  (state) => state.authData
-);
+export const getAuthData = createSelector(getFeature, (state) => {
+  console.log(state);
 
-export const getAccessToken = createSelector(
-  getAuthData,
-  (authData) => authData && authData.accessToken
-);
+  return state.authData;
+});
+
+export const getAccessToken = createSelector(getAuthData, (authData) => {
+  console.log(authData);
+
+  return authData?.accessToken;
+});
 
 export const isAuth = createSelector(
   getAccessToken,

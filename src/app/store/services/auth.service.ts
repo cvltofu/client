@@ -16,6 +16,19 @@ export class AuthService {
     private jwtHelperService: JwtHelperService
   ) {}
 
+  registration(body: { username: string; email: string; password: string }) {
+    return this.httpClient.post<{ accessToken: string }>(
+      this.apiUrlRegistration,
+      body
+    );
+    // .pipe(
+    //   map((res) => ({
+    //     ...res,
+    //     ...this.jwtHelperService.decodeToken(res.accessToken),
+    //   }))
+    // );
+  }
+
   login(body: { email: string; password: string }) {
     return this.httpClient
       .post<{ accessToken: string }>(this.apiUrlLogin, body)

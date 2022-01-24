@@ -1,5 +1,12 @@
 import { createReducer, on } from '@ngrx/store';
-import { login, loginFailed, loginSuccess } from './auth.actions';
+import {
+  login,
+  loginFailed,
+  loginSuccess,
+  registration,
+  registrationFailed,
+  registrationSuccess,
+} from './auth.actions';
 
 export const AUTH_FEATURENAME = 'auth';
 
@@ -28,23 +35,39 @@ const initialState: AuthState = {
 
 export const authReducer = createReducer(
   initialState,
+
   on(login, (state) => ({
     ...state,
     loading: true,
   })),
 
-  on(
-    loginSuccess,
-    (state, { type, ...authData }: { type: string } & AuthData) => ({
-      ...state,
-      authData,
-      loaded: true,
-      loading: false,
-      serverError: '',
-    })
-  ),
+  on(loginSuccess, (state, authData: AuthData) => ({
+    ...state,
+    authData,
+    loaded: true,
+    loading: false,
+    serverError: '',
+  })),
 
   on(loginFailed, (state, { serverError }) => ({
+    ...state,
+    authData: undefined,
+    loaded: true,
+    loading: false,
+    serverError,
+  })),
+
+  on(registration, (state) => ({
+    ...state,
+    loading: true,
+  })),
+
+  on(registrationSuccess, (state) => ({
+    ...state,
+    loading: false,
+  })),
+
+  on(registrationFailed, (state, { serverError }) => ({
     ...state,
     authData: undefined,
     loaded: true,
