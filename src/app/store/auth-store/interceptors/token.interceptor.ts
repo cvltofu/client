@@ -1,4 +1,5 @@
 import {
+  HttpContextToken,
   HttpErrorResponse,
   HttpEvent,
   HttpHandler,
@@ -8,8 +9,10 @@ import {
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { catchError, EMPTY, first, mergeMap, Observable } from 'rxjs';
+import { catchError, EMPTY, first, mergeMap, Observable, tap } from 'rxjs';
 import { getAccessToken } from '../store/auth.selectors';
+
+export const IS_CACHE_ENABLED = new HttpContextToken<boolean>(() => false);
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -19,6 +22,7 @@ export class TokenInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
+    // if (req.context.get(IS_CACHE_ENABLED) === true) {}
     return this.store$.pipe(
       select(getAccessToken),
       first(),
@@ -28,6 +32,7 @@ export class TokenInterceptor implements HttpInterceptor {
               setHeaders: {
                 Authorization: `Bearer ${token}`,
               },
+              // withCredentials: true,
             })
           : req;
 

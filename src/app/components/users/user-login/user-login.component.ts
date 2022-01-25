@@ -15,20 +15,11 @@ import { IUser } from '../interfaces/user.interface';
 export class UserLoginComponent {
   user: IUser = { username: '', email: '', password: '' };
 
-  loading$: Observable<boolean> = this.store$.pipe(select(auth.getLoading));
-  loaded$: Observable<boolean> = this.store$.pipe(select(auth.getLoaded));
-  serverError$: Observable<string> = this.store$.pipe(
-    select(auth.getServerError)
-  );
-
   constructor(private store$: Store, private router: Router) {}
 
   login(): void {
     this.store$.dispatch(login(this.user));
 
-    if (this.loaded$) {
-      this.router.navigate(['']);
-    }
     // this.authService.login(this.user);
   }
 }

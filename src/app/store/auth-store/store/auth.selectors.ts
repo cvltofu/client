@@ -14,14 +14,10 @@ export const getServerError = createSelector(
 );
 
 export const getAuthData = createSelector(getFeature, (state) => {
-  console.log(state);
-
   return state.authData;
 });
 
 export const getAccessToken = createSelector(getAuthData, (authData) => {
-  console.log(authData);
-
   return authData?.accessToken;
 });
 

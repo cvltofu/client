@@ -1,4 +1,4 @@
-<div *ngIf="loaded$ | async" class="login-card">
+<div class="login-card">
   <mat-card id="login-content">
     <mat-card-header>
       <mat-card-title>
@@ -47,7 +47,7 @@
           class="login-button"
           mat-raised-button
           color="primary"
-          [disabled]="(loading$ | async) || email.invalid || password.invalid"
+          [disabled]="email.invalid || password.invalid"
           (click)="login()"
         >
           Login

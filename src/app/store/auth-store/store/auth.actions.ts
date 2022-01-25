@@ -6,11 +6,6 @@ export const registration = createAction(
   props<{ username: string; email: string; password: string }>()
 );
 
-export const login = createAction(
-  '[Auth] login',
-  props<{ email: string; password: string }>()
-);
-
 export const registrationSuccess = createAction(
   '[Auth] registration success',
   props<{ accessToken: string }>()
@@ -21,9 +16,14 @@ export const registrationFailed = createAction(
   props<{ serverError: string }>()
 );
 
+export const login = createAction(
+  '[Auth] login',
+  props<{ email: string; password: string }>()
+);
+
 export const loginSuccess = createAction(
   '[Auth] login success',
-  (loginSuccessData: AuthData) => loginSuccessData
+  props<AuthData>()
 );
 
 export const loginFailed = createAction(
