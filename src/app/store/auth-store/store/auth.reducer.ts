@@ -3,6 +3,7 @@ import {
   login,
   loginFailed,
   loginSuccess,
+  logoutSuccess,
   registration,
   registrationFailed,
   registrationSuccess,
@@ -73,5 +74,10 @@ export const authReducer = createReducer(
     loaded: true,
     loading: false,
     serverError,
+  })),
+
+  on(logoutSuccess, () => ({
+    ...initialState,
+    authData: undefined,
   }))
 );

@@ -4,7 +4,8 @@ import { NgModule } from '@angular/core';
 import { JwtModule } from '@auth0/angular-jwt';
 
 import { EffectsModule } from '@ngrx/effects';
-import { StoreModule } from '@ngrx/store';
+import { Store, StoreModule } from '@ngrx/store';
+import { initAuth } from './store/auth.actions';
 
 import { AuthEffects } from './store/auth.effects';
 import { authReducer, AUTH_FEATURENAME } from './store/auth.reducer';
@@ -23,4 +24,8 @@ import { authReducer, AUTH_FEATURENAME } from './store/auth.reducer';
     EffectsModule.forFeature([AuthEffects]),
   ],
 })
-export class AuthStoreModule {}
+export class AuthStoreModule {
+  constructor(store$: Store) {
+    store$.dispatch(initAuth());
+  }
+}

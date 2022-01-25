@@ -30,3 +30,7 @@ export const loginFailed = createAction(
   '[Auth] login failed',
   props<{ serverError: string }>()
 );
+
+export const logoutSuccess = createAction('[Auth] logout success');
+
+export const initAuth = createAction('[Auth] init auth');
