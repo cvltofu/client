@@ -3,9 +3,9 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import {
   catchError,
-  delayWhen,
   filter,
   first,
+  fromEvent,
   map,
   of,
   switchMap,
@@ -22,6 +22,7 @@ import {
   registrationFailed,
   initAuth,
   logoutSuccess,
+  extractLoginData,
 } from './auth.actions';
 import { AuthData } from './auth.reducer';
 import { isAuth } from './auth.selectors';
@@ -44,7 +45,7 @@ export class AuthEffects {
             password: action.password,
           })
           .pipe(
-            map((loginSuccessData: AuthData) => loginSuccess(loginSuccessData)),
+            map((authData) => loginSuccess({ authData })),
             catchError((error) =>
               of(
                 loginFailed({
@@ -86,8 +87,8 @@ export class AuthEffects {
   refresh$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loginSuccess),
-      delayWhen((action: AuthData) =>
-        timer(action.exp * 1000 - 60 * 1000 - Date.now())
+      switchMap((action) =>
+        timer(action.authData.exp * 1000 - 60 * 1000 - Date.now())
       ),
       switchMap(() =>
         this.store$.pipe(
@@ -96,13 +97,8 @@ export class AuthEffects {
           filter((isAuthent) => isAuthent)
         )
       ),
-      switchMap(() =>
-        this.authService
-          .refresh()
-          .pipe(
-            map((loginSuccessData: AuthData) => loginSuccess(loginSuccessData))
-          )
-      )
+      switchMap(() => this.authService.refresh()),
+      map((authData) => loginSuccess({ authData }))
     )
   );
 
@@ -110,9 +106,7 @@ export class AuthEffects {
     () =>
       this.actions$.pipe(
         ofType(loginSuccess),
-        tap((loginSuccessData) => {
-          const { type, ...authData } = loginSuccessData;
-
+        tap(({ authData }) => {
           localStorage.setItem('authData', JSON.stringify(authData));
         })
       ),
@@ -121,7 +115,7 @@ export class AuthEffects {
 
   extractLoginData$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(initAuth),
+      ofType(initAuth, extractLoginData),
       map(() => {
         const authDataString = localStorage.getItem('authData');
 
@@ -135,8 +129,16 @@ export class AuthEffects {
           return logoutSuccess();
         }
 
-        return loginSuccess(authData);
+        return loginSuccess({ authData });
       })
+    )
+  );
+
+  listenStorageEffect$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(initAuth),
+      switchMap(() => fromEvent(window, 'storage')),
+      map(() => extractLoginData())
     )
   );
 }

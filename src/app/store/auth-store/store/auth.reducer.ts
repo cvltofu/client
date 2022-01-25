@@ -42,7 +42,7 @@ export const authReducer = createReducer(
     loading: true,
   })),
 
-  on(loginSuccess, (state, authData: AuthData) => ({
+  on(loginSuccess, (state, { authData }) => ({
     ...state,
     authData,
     loaded: true,
