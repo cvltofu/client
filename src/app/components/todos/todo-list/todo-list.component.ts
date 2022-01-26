@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 import { Todo } from '../interfaces/todo.interface';
 import { IDate } from '../interfaces/date.interface';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../services/old.auth.service';
 
 @Component({
   selector: 'app-todos-list',
