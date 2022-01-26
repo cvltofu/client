@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DEFAULT_ROUTER_FEATURENAME, routerReducer } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
 import { AuthGuard } from './components/classes/auth.guard';
-import { LoginAuthGuard } from './components/classes/login-auth.guard';
+import { GuestGuard } from './components/classes/guest.guard';
 
 import { HomeComponent } from './components/home/home.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
@@ -23,12 +23,12 @@ const routes: Routes = [
   {
     path: 'login',
     component: UserLoginComponent,
-    // canActivate: [LoginAuthGuard],
+    canActivate: [GuestGuard],
   },
   {
     path: 'todos',
     component: TodosComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: '**',

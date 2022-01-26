@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
 import {
   catchError,
+  distinctUntilChanged,
   filter,
   first,
   fromEvent,
   map,
   of,
+  skip,
   switchMap,
   tap,
   timer,
@@ -32,7 +35,8 @@ export class AuthEffects {
   constructor(
     private store$: Store,
     private actions$: Actions,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   login$ = createEffect(() =>
@@ -140,5 +144,22 @@ export class AuthEffects {
       switchMap(() => fromEvent(window, 'storage')),
       map(() => extractLoginData())
     )
+  );
+
+  listenAuthorizeEffect$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(initAuth),
+        switchMap(() => this.authService.isAuth$),
+        map((authData) => !!authData),
+        distinctUntilChanged(),
+        skip(1),
+        tap((isAuthorized) => {
+          this.router.navigate(isAuthorized ? ['/'] : ['/login']);
+        })
+      ),
+    {
+      dispatch: false,
+    }
   );
 }

@@ -1,14 +1,16 @@
 import { HttpClient, HttpContext } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable, tap } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import {
   apiUrlLogin,
   apiUrlRegistration,
   apiUrlRefresh,
 } from 'src/environments/environment';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { select, Store } from '@ngrx/store';
 import { AuthData } from '../auth-store/store/auth.reducer';
-import { IS_CACHE_ENABLED } from '../auth-store/interceptors/token.interceptor';
+import { ADD_ACCESS_TOKEN } from '../auth-store/interceptors/token.interceptor';
+import { getAuthData } from '../auth-store/store/auth.selectors';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +20,15 @@ export class AuthService {
   private apiUrlLogin = apiUrlLogin;
   private apiUrlRefresh = apiUrlRefresh;
 
+  isAuth$ = this.store$.pipe(
+    select(getAuthData),
+    map((authData) => !!authData)
+  );
+
+  isGuest$ = this.isAuth$.pipe(map((isAuth) => !isAuth));
+
   constructor(
+    private store$: Store,
     private httpClient: HttpClient,
     private jwtHelperService: JwtHelperService
   ) {}
@@ -26,21 +36,15 @@ export class AuthService {
   registration(body: { username: string; email: string; password: string }) {
     return this.httpClient.post<{ accessToken: string }>(
       this.apiUrlRegistration,
-      body,
-      { withCredentials: true }
-
-      // { context: new HttpContext().set(IS_CACHE_ENABLED, true) }
+      body
     );
   }
 
   login(body: { email: string; password: string }): Observable<AuthData> {
     return this.httpClient
-      .post<{ accessToken: string }>(
-        this.apiUrlLogin,
-        body,
-        { withCredentials: true }
-        // {context: new HttpContext().set(IS_CACHE_ENABLED, true),  }
-      )
+      .post<{ accessToken: string }>(this.apiUrlLogin, body, {
+        context: new HttpContext().set(ADD_ACCESS_TOKEN, false),
+      })
       .pipe(
         map((res) => ({
           ...res,

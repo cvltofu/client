@@ -32,6 +32,7 @@ const initialState: AuthState = {
   loaded: true,
   loading: false,
   serverError: '',
+  authData: undefined,
 };
 
 export const authReducer = createReducer(
