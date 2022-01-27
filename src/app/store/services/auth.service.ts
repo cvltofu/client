@@ -57,7 +57,9 @@ export class AuthService {
 
   refresh(): Observable<AuthData> {
     return this.httpClient
-      .get<{ accessToken: string }>(this.apiUrlRefresh, {})
+      .get<{ accessToken: string }>(this.apiUrlRefresh, {
+        context: new HttpContext().set(ADD_ACCESS_TOKEN, false),
+      })
       .pipe(
         map((res) => ({
           ...res,
@@ -67,6 +69,12 @@ export class AuthService {
   }
 
   logout() {
-    return this.httpClient.post(this.apiUrlLogout, {});
+    return this.httpClient.post(
+      this.apiUrlLogout,
+      {},
+      {
+        context: new HttpContext().set(ADD_ACCESS_TOKEN, false),
+      }
+    );
   }
 }
