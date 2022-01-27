@@ -11,6 +11,7 @@ export const apiUrlRegistration =
   'http://localhost:5000/api/auth/registration/';
 export const apiUrlLogin = 'http://localhost:5000/api/auth/login/';
 export const apiUrlRefresh = 'http://localhost:5000/api/auth/refresh/';
+export const apiUrlLogout = 'http://localhost:5000/api/auth/logout/';
 
 /*
  * For easier debugging in development mode, you can import the following file

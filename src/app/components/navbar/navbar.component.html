@@ -17,20 +17,25 @@
     color="primary"
     routerLink="todos"
     routerLinkActive="active"
+    *ngIf="isAuth$ | async"
   >
     Todos
   </button>
-  <!-- *ngIf="accessToken" -->
 
   <span class="example-spacer"></span>
-  <button mat-icon-button *ngIf="!accessToken" routerLink="login">
+  <button mat-icon-button *ngIf="!(isAuth$ | async)" routerLink="login">
     <mat-icon>login</mat-icon>
   </button>
-  <button mat-icon-button *ngIf="!accessToken" routerLink="registration">
+  <button mat-icon-button *ngIf="!(isAuth$ | async)" routerLink="registration">
     <mat-icon>person_add</mat-icon>
   </button>
-  <div *ngIf="accessToken">Hello, {{ username }}</div>
-  <button mat-icon-button *ngIf="accessToken" (click)="logout()" routerLink="">
+  <div *ngIf="isAuth$ | async">Hello, {{ username$ | async }}</div>
+  <button
+    mat-icon-button
+    *ngIf="isAuth$ | async"
+    (click)="logout()"
+    routerLink=""
+  >
     <mat-icon>logout</mat-icon>
   </button>
 </mat-toolbar>

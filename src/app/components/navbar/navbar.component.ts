@@ -1,28 +1,28 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { AuthService } from '../services/old.auth.service';
+import { Component } from '@angular/core';
+import { select, Store } from '@ngrx/store';
+import { filter, map, Observable } from 'rxjs';
+import { logout } from 'src/app/store/auth-store/store/auth.actions';
+import {
+  getAuthData,
+  isAuth,
+} from 'src/app/store/auth-store/store/auth.selectors';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
 })
-export class NavbarComponent implements OnInit, OnDestroy {
+export class NavbarComponent {
   constructor(private store$: Store) {}
 
-  public accessToken?: string | null;
-  public isAuth?: boolean;
-  public username!: string;
-
-  ngOnInit(): void {
-    // this.authService.accessToken$.subscribe(() => {
-    //   this.accessToken = localStorage.getItem('access-token');
-    // });
-  }
+  public isAuth$: Observable<boolean> = this.store$.pipe(select(isAuth));
+  public username$: Observable<string> = this.store$.pipe(
+    select(getAuthData),
+    filter((authData) => authData !== undefined),
+    map((authData) => (authData ? authData.username : 'Anonim'))
+  );
 
   logout() {
-    // this.authService.logout();
+    this.store$.dispatch(logout());
   }
-
-  ngOnDestroy(): void {}
 }

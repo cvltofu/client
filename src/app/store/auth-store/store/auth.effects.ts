@@ -26,6 +26,7 @@ import {
   initAuth,
   logoutSuccess,
   extractLoginData,
+  logout,
 } from './auth.actions';
 import { AuthData } from './auth.reducer';
 import { isAuth } from './auth.selectors';
@@ -103,6 +104,18 @@ export class AuthEffects {
       ),
       switchMap(() => this.authService.refresh()),
       map((authData) => loginSuccess({ authData }))
+    )
+  );
+
+  logout$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(logout),
+      switchMap(() => this.authService.logout()),
+      map(() => {
+        localStorage.removeItem('authData');
+
+        return logoutSuccess();
+      })
     )
   );
 

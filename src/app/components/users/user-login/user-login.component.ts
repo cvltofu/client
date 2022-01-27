@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
 import { login } from 'src/app/store/auth-store/store/auth.actions';
 
 import * as auth from 'src/app/store/auth-store/store/auth.selectors';
@@ -19,7 +18,5 @@ export class UserLoginComponent {
 
   login(): void {
     this.store$.dispatch(login(this.user));
-
-    // this.authService.login(this.user);
   }
 }
